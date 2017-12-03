@@ -4,8 +4,17 @@ const BuildControl = (props) => {
   return (
     <div>
       {props.label}
-      <button>Less</button>
-      <button>More</button>
+      <button
+        disabled={props.disabled}
+        onClick={() => props.onIngridientRemove(props.type)}
+      >
+        Less
+      </button>
+      <button
+        onClick={() => props.onIngridientAdd(props.type)}
+      >
+        More
+      </button>
     </div>
   );
 };

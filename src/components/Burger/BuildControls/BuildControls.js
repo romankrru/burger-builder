@@ -13,8 +13,17 @@ const BuildControls = (props) => {
   return (
     <div>
       {
-        controls.map((control) => {
-          return <BuildControl label={control.label} />
+        controls.map((control, index) => {
+          return (
+            <BuildControl 
+              key={index}
+              label={control.label}
+              type={control.type}
+              disabled={props.disabledInfo[control.type]}
+              onIngridientAdd={props.onIngridientAdd}
+              onIngridientRemove={props.onIngridientRemove}
+            />  
+          );
         })
       }
     </div>
