@@ -52,6 +52,10 @@ class BurgerBuilder extends Component {
     });
   }
 
+  continuePurchasing = () => {
+    alert('Continue!');
+  }
+
   addIngridientHandler = (type) => {
     const oldCount = this.state.ingridients[type];
     const updatedCount = oldCount + 1;
@@ -106,7 +110,11 @@ class BurgerBuilder extends Component {
           show={this.state.purchasing}
           cancelPurchasing={this.cancelPurchasing}
         >
-          <OrderSummary ingridients={this.state.ingridients} />
+          <OrderSummary
+            ingridients={this.state.ingridients}
+            continuePurchasing={this.continuePurchasing}
+            cancelPurchasing={this.cancelPurchasing}            
+          />
         </Modal>
         <Burger ingridients={this.state.ingridients} />
         <BuildControls
