@@ -7,11 +7,11 @@ import styles from './Modal.css';
 const Modal = (props) => {
   return (
     <Aux>
-      <Backdrop show={props.show} cancelPurchasing={props.cancelPurchasing} />
+      <Backdrop show={props.show} onClick={props.cancelPurchasing} />
       <div
         className={styles.Modal}
         style={{
-          transform: props.show ? 'translate(-50%, -50%)' : 'translate(-50%, -100vh)',
+          transform: props.show ? 'translate(-50%, 0%)' : 'translate(-50%, -150vh)',
           opacity: props.show ? '1' : '0',
         }}
       >

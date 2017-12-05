@@ -26,3 +26,22 @@
   background-color: #e4ad2252;
   border-bottom: 4px solid #0bb0f193;
 }
+
+@media (max-width: 500px) {
+  .NavigationItem {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .NavigationItem a {
+    color: #c4740d;
+  }
+
+  .NavigationItem a:active,
+  .NavigationItem a.active {
+    background-color: transparent;
+    border-bottom: none;
+    color: #10a5eb;
+  }
+}

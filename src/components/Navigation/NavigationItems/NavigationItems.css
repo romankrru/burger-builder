@@ -6,3 +6,9 @@
 
   list-style: none;
 }
+
+@media (max-width: 500px) {
+  .NavigationItems {
+    display: block;
+  }
+}
