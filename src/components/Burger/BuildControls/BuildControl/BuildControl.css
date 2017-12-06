@@ -1,0 +1,33 @@
+.BuildControl {
+
+}
+
+.BuildControl .label {
+  display: inline-block;
+  width: 100px;
+}
+
+.BuildControl button {
+  padding: 8px 16px;
+  margin: 4px 6px;
+  background-color: #d8671b;
+  border: none;
+  outline: none;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all .2s ease;
+}
+
+.BuildControl button:hover {
+  transform: scale(1.1);
+}
+
+.BuildControl button:disabled {
+  background-color: #be9274;
+  cursor: default;
+}
+
+.BuildControl button:disabled:hover {
+  transform: none;
+}

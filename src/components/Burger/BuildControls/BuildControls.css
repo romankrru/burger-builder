@@ -1,0 +1,41 @@
+.BuildControls {
+  width: 320px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.BuildControls .ordernow {
+  margin-top: 10px;
+  border: none;
+  outline: none;
+  padding: 16px 32px;
+  background-color: #53cf1a;
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) both;
+  transform: translate3d(0, 0, 0);
+}
+
+.BuildControls .ordernow:disabled {
+  background-color: #be9274;
+  animation: none;
+}
+
+@keyframes shake {
+  10%, 90% {
+    transform: translate3d(-1px, 0, 0);
+  }
+  
+  20%, 80% {
+    transform: translate3d(2px, 0, 0);
+  }
+
+  30%, 50%, 70% {
+    transform: translate3d(-4px, 0, 0);
+  }
+
+  40%, 60% {
+    transform: translate3d(4px, 0, 0);
+  }
+} 
