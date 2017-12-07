@@ -18,16 +18,21 @@ const INGRIDIENT_PRICES = {
 
 class BurgerBuilder extends Component {
   state = {
-    ingridients: {
-      salad: 0,
-      bacon: 0,
-      meat: 0,
-      cheese: 0
-    },
+    ingridients: null,
     totalPrice: 4,
     purchasable: false,
     purchasing: false,
     loading: false,
+    val: 42
+  }
+
+  componentDidMount() {
+    axios.get('https://react-burger-builder-fff98.firebaseio.com/ingridients.json')
+      .then(res => {
+        this.setState({
+          ingridients: res.data,
+        });
+      })
   }
 
   updatePurchasable = (ingridients) => {
@@ -139,17 +144,35 @@ class BurgerBuilder extends Component {
       disabledInfo[key] = disabledInfo[key] === 0;
     }
 
-    let orderSummary = (
-      <OrderSummary
-        ingridients={this.state.ingridients}
-        continuePurchasing={this.continuePurchasing}
-        cancelPurchasing={this.cancelPurchasing}
-        price={this.state.totalPrice.toFixed(2)}
-      />
-    );
+    let orderSummary = <Spinner />
 
-    if (this.state.loading) {
-      orderSummary = <Spinner />
+    if (!this.state.loading && this.state.ingridients) {
+      orderSummary = (
+        <OrderSummary
+          ingridients={this.state.ingridients}
+          continuePurchasing={this.continuePurchasing}
+          cancelPurchasing={this.cancelPurchasing}
+          price={this.state.totalPrice.toFixed(2)}
+        />
+      );      
+    }
+
+    let burger = <Spinner />;
+
+    if (this.state.ingridients) {
+      burger = (
+        <Aux>
+          <Burger ingridients={this.state.ingridients} />
+          <BuildControls
+            purchasing={this.updatePurchasing}
+            purchasable={this.state.purchasable}
+            totalPrice={this.state.totalPrice}
+            disabledInfo={disabledInfo}
+            onIngridientAdd={this.addIngridientHandler}
+            onIngridientRemove={this.removeIngridientHandler}
+          />
+        </Aux>
+      )
     }
 
     return (
@@ -160,15 +183,7 @@ class BurgerBuilder extends Component {
         >
           {orderSummary}
         </Modal>
-        <Burger ingridients={this.state.ingridients} />
-        <BuildControls
-          purchasing={this.updatePurchasing}
-          purchasable={this.state.purchasable}
-          totalPrice={this.state.totalPrice}
-          disabledInfo={disabledInfo}
-          onIngridientAdd={this.addIngridientHandler}
-          onIngridientRemove={this.removeIngridientHandler}
-        />
+        {burger}
       </Aux>
     );
   }
