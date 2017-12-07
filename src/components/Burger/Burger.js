@@ -23,7 +23,7 @@ const Burger = (props) => {
   return (
     <div className={styles.Burger}>
       <Ingridient type='bread-top' />
-      {transformedIngridients}
+        {transformedIngridients}
       <Ingridient type='bread-bottom' />
     </div>
   );
