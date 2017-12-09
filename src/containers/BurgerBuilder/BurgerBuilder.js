@@ -134,11 +134,11 @@ class BurgerBuilder extends Component {
   }
 
   render() {
-    let disabledInfo = { ...this.state.ingridients };
+    const disabledInfo = { ...this.state.ingridients };
 
-    disabledInfo = Object.keys(disabledInfo).map(key => (
-      disabledInfo[key] === 0
-    ));
+    Object.keys(disabledInfo).forEach((key) => {
+      disabledInfo[key] = disabledInfo[key] === 0;
+    });
 
     let orderSummary = <Spinner />;
 

@@ -23,7 +23,7 @@ const BuildControl = props => (
 );
 
 BuildControl.defaultProps = {
-  disabled: false,
+  disabled: true,
 };
 
 BuildControl.propTypes = {

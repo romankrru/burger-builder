@@ -43,7 +43,7 @@ BuildControls.defaultProps = {
 
 BuildControls.propTypes = {
   totalPrice: PropTypes.number.isRequired,
-  disabledInfo: PropTypes.arrayOf(PropTypes.bool).isRequired,
+  disabledInfo: PropTypes.objectOf(PropTypes.bool).isRequired,
   onIngridientAdd: PropTypes.func.isRequired,
   onIngridientRemove: PropTypes.func.isRequired,
   purchasing: PropTypes.func.isRequired,
