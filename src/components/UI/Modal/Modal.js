@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import Aux from '../../../hoc/Auxiliary/Auxiliary';
 import Backdrop from '../Backdrop/Backdrop';
@@ -26,5 +27,17 @@ class Modal extends Component {
     );
   }
 }
+
+Modal.defaultProps = {
+  show: false,
+  children: null,
+  backdropClick: () => {},
+};
+
+Modal.propTypes = {
+  show: PropTypes.bool,
+  children: PropTypes.node,
+  backdropClick: PropTypes.func,
+};
 
 export default Modal;

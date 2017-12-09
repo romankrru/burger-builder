@@ -13,51 +13,46 @@ const INGRIDIENT_PRICES = {
   salad: 0.3,
   bacon: 0.9,
   meat: 1.2,
-  cheese: 0.6
+  cheese: 0.6,
 };
 
 class BurgerBuilder extends Component {
   state = {
-    ingridients: null,
+    ingridients: {},
     totalPrice: 4,
     purchasable: false,
     purchasing: false,
     loading: false,
-    val: 42
   }
 
   componentDidMount() {
     axios.get('https://react-burger-builder-fff98.firebaseio.com/ingridients.json')
-      .then(res => {
+      .then((res) => {
         this.setState({
           ingridients: res.data,
         });
-      })
+      });
   }
 
   updatePurchasable = (ingridients) => {
     const sum = Object.keys(ingridients)
-      .map((ingridientKey) => {
-        return ingridients[ingridientKey];
-      })
-      .reduce((sum, el) => {
-        return sum + el;
-      }, 0);
+      .map(ingridientKey => ingridients[ingridientKey])
+      .reduce((s, el) => s + el, 0);
 
-      this.setState({
-        purchasable: sum > 0
-      });
+    this.setState({
+      purchasable: sum > 0,
+    });
   }
 
   updatePurchasing = () => {
     this.setState({
-      purchasing: true
+      purchasing: true,
     });
   }
 
   cancelPurchasing = () => {
     this.setState({
-      purchasing: false
+      purchasing: false,
     });
   }
 
@@ -68,27 +63,28 @@ class BurgerBuilder extends Component {
 
     const data = {
       ingridients: this.state.ingridients,
+      date: String(new Date()),
       totalPrice: this.state.totalPrice,
       customer: {
         name: 'Roman',
         address: {
           country: 'Russia',
           street: 'Teststreet',
-          zip: '123123'
+          zip: '123123',
         },
-        email: 'rm07ru@gmail.com'
+        email: 'rm07ru@gmail.com',
       },
-      deliveryMethod: 'fastest'
+      deliveryMethod: 'fastest',
     };
-    
+
     axios.post('/orders.json', data)
-      .then(res => {
+      .then(() => {
         this.setState({
           loading: false,
-          purchasing: false,          
+          purchasing: false,
         });
       })
-      .catch(err => {
+      .catch(() => {
         this.setState({
           loading: false,
           purchasing: false,
@@ -108,9 +104,9 @@ class BurgerBuilder extends Component {
 
     this.setState({
       ingridients: updatedIngridients,
-      totalPrice: updatedPrice
+      totalPrice: updatedPrice,
     });
-    
+
     this.updatePurchasable(updatedIngridients);
   }
 
@@ -131,20 +127,20 @@ class BurgerBuilder extends Component {
 
     this.setState({
       ingridients: updatedIngridients,
-      totalPrice: updatedPrice
+      totalPrice: updatedPrice,
     });
 
-    this.updatePurchasable(updatedIngridients);    
+    this.updatePurchasable(updatedIngridients);
   }
 
   render() {
-    const disabledInfo = {...this.state.ingridients};
+    let disabledInfo = { ...this.state.ingridients };
 
-    for (let key in disabledInfo) {
-      disabledInfo[key] = disabledInfo[key] === 0;
-    }
+    disabledInfo = Object.keys(disabledInfo).map(key => (
+      disabledInfo[key] === 0
+    ));
 
-    let orderSummary = <Spinner />
+    let orderSummary = <Spinner />;
 
     if (!this.state.loading && this.state.ingridients) {
       orderSummary = (
@@ -154,7 +150,7 @@ class BurgerBuilder extends Component {
           cancelPurchasing={this.cancelPurchasing}
           price={this.state.totalPrice.toFixed(2)}
         />
-      );      
+      );
     }
 
     let burger = <Spinner />;
@@ -172,12 +168,12 @@ class BurgerBuilder extends Component {
             onIngridientRemove={this.removeIngridientHandler}
           />
         </Aux>
-      )
+      );
     }
 
     return (
       <Aux>
-        <Modal 
+        <Modal
           show={this.state.purchasing}
           backdropClick={this.cancelPurchasing}
         >

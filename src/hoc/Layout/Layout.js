@@ -1,4 +1,5 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import Auxiliary from '../Auxiliary/Auxiliary';
 import Toolbar from '../../components/Navigation/Toolbar/Toolbar';
@@ -17,11 +18,9 @@ class Layout extends Component {
   }
 
   togggleSideDrawer = () => {
-    this.setState((prevState) => {
-      return {
-        showSideDrawer: !prevState.showSideDrawer
-      }
-    });
+    this.setState(prevState => ({
+      showSideDrawer: !prevState.showSideDrawer,
+    }));
   }
 
   render() {
@@ -39,5 +38,9 @@ class Layout extends Component {
     );
   }
 }
+
+Layout.propTypes = {
+  children: PropTypes.node.isRequired,
+};
 
 export default Layout;

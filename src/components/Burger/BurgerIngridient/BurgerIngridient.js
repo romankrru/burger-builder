@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import styles from './BurgerIngredient.css';
@@ -9,27 +9,27 @@ class BurgerIngridient extends Component {
 
     switch (this.props.type) {
       case 'bread-bottom':
-        ingridient = <div className={styles.BreadBottom}></div>
+        ingridient = <div className={styles.BreadBottom} />;
         break;
       case 'bread-top':
         ingridient = (
           <div className={styles.BreadTop}>
-            <div className={styles.Seeds1}></div>
-            <div className={styles.Seeds2}></div>
+            <div className={styles.Seeds1} />
+            <div className={styles.Seeds2} />
           </div>
         );
         break;
       case 'meat':
-        ingridient = <div className={styles.Meat}></div>
+        ingridient = <div className={styles.Meat} />;
         break;
       case 'cheese':
-        ingridient = <div className={styles.Cheese}></div>
+        ingridient = <div className={styles.Cheese} />;
         break;
       case 'salad':
-        ingridient = <div className={styles.Salad}></div>
+        ingridient = <div className={styles.Salad} />;
         break;
       case 'bacon':
-        ingridient = <div className={styles.Bacon}></div>
+        ingridient = <div className={styles.Bacon} />;
         break;
       default:
         ingridient = null;
@@ -37,10 +37,10 @@ class BurgerIngridient extends Component {
 
     return ingridient;
   }
-};
+}
 
 BurgerIngridient.propTypes = {
-  type: PropTypes.string.isRequired
+  type: PropTypes.string.isRequired,
 };
 
 export default BurgerIngridient;

@@ -1,18 +1,17 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import Aux from '../../hoc/Auxiliary/Auxiliary';
 import Button from '../UI/Button/Button';
 
 const OrderSummary = (props) => {
   const summary = Object.keys(props.ingridients)
-    .map((ingridientKey) => {
-      return (
-        <li key={ingridientKey}>
-          <span style={{textTransform: 'capitalize'}}>{ingridientKey}</span>
+    .map(ingridientKey => (
+      <li key={ingridientKey}>
+        <span style={{ textTransform: 'capitalize' }}>{ingridientKey}</span>
           : {props.ingridients[ingridientKey]}
-        </li>
-      );
-    });
+      </li>
+    ));
 
   return (
     <Aux>
@@ -23,10 +22,22 @@ const OrderSummary = (props) => {
       </ul>
       <p><strong>Total price: {props.price}</strong></p>
       <p>Continue to checkout?</p>
-      <Button btnType='Danger' clicked={props.cancelPurchasing}>Cancel</Button>
-      <Button btnType='Success' clicked={props.continuePurchasing}>Continue</Button>      
+      <Button btnType="Danger" clicked={props.cancelPurchasing}>Cancel</Button>
+      <Button btnType="Success" clicked={props.continuePurchasing}>Continue</Button>
     </Aux>
   );
+};
+
+OrderSummary.defaultProps = {
+  price: '0',
+  ingridients: {},
+};
+
+OrderSummary.propTypes = {
+  price: PropTypes.string,
+  cancelPurchasing: PropTypes.func.isRequired,
+  continuePurchasing: PropTypes.func.isRequired,
+  ingridients: PropTypes.objectOf(PropTypes.number),
 };
 
 export default OrderSummary;

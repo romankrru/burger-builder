@@ -1,7 +1,14 @@
 {
-  "extends": "airbnb",
+  "extends": [
+    "airbnb"   
+  ],
+  "parser": "babel-eslint",
+  "globals": {
+    "document": true
+  },
   "rules": {
     "linebreak-style": 0,
+    "react/no-array-index-key": "off",
     "react/jsx-filename-extension": [
       1,
       {
