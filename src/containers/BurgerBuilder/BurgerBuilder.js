@@ -8,6 +8,7 @@ import Modal from '../../components/UI/Modal/Modal';
 import OrderSummary from '../../components/OrderSummary/OrderSummary';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
+import Checkout from '../Checkout/Checkout';
 
 const INGRIDIENT_PRICES = {
   salad: 0.3,
@@ -180,6 +181,7 @@ class BurgerBuilder extends Component {
           {orderSummary}
         </Modal>
         {burger}
+        <Checkout />
       </Aux>
     );
   }
