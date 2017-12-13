@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import axios from '../../axios-orders';
 
 import Aux from '../../hoc/Auxiliary/Auxiliary';
@@ -8,7 +9,6 @@ import Modal from '../../components/UI/Modal/Modal';
 import OrderSummary from '../../components/OrderSummary/OrderSummary';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
-import Checkout from '../Checkout/Checkout';
 
 const INGRIDIENT_PRICES = {
   salad: 0.3,
@@ -58,39 +58,41 @@ class BurgerBuilder extends Component {
   }
 
   continuePurchasing = () => {
-    this.setState({
-      loading: true,
-    });
+    // this.setState({
+    //   loading: true,
+    // });
 
-    const data = {
-      ingridients: this.state.ingridients,
-      date: String(new Date()),
-      totalPrice: this.state.totalPrice,
-      customer: {
-        name: 'Roman',
-        address: {
-          country: 'Russia',
-          street: 'Teststreet',
-          zip: '123123',
-        },
-        email: 'rm07ru@gmail.com',
-      },
-      deliveryMethod: 'fastest',
-    };
+    // const data = {
+    //   ingridients: this.state.ingridients,
+    //   date: String(new Date()),
+    //   totalPrice: this.state.totalPrice,
+    //   customer: {
+    //     name: 'Roman',
+    //     address: {
+    //       country: 'Russia',
+    //       street: 'Teststreet',
+    //       zip: '123123',
+    //     },
+    //     email: 'rm07ru@gmail.com',
+    //   },
+    //   deliveryMethod: 'fastest',
+    // };
 
-    axios.post('/orders.json', data)
-      .then(() => {
-        this.setState({
-          loading: false,
-          purchasing: false,
-        });
-      })
-      .catch(() => {
-        this.setState({
-          loading: false,
-          purchasing: false,
-        });
-      });
+    // axios.post('/orders.json', data)
+    //   .then(() => {
+    //     this.setState({
+    //       loading: false,
+    //       purchasing: false,
+    //     });
+    //   })
+    //   .catch(() => {
+    //     this.setState({
+    //       loading: false,
+    //       purchasing: false,
+    //     });
+    //   });
+
+    this.props.history.push('/checkout');
   }
 
   addIngridientHandler = (type) => {
@@ -181,10 +183,13 @@ class BurgerBuilder extends Component {
           {orderSummary}
         </Modal>
         {burger}
-        <Checkout />
       </Aux>
     );
   }
 }
+
+BurgerBuilder.propTypes = {
+  history: PropTypes.objectOf(PropTypes.any).isRequired,
+};
 
 export default withErrorHandler(BurgerBuilder, axios);
