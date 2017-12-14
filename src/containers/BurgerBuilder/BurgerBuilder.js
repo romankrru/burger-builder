@@ -19,7 +19,7 @@ const INGRIDIENT_PRICES = {
 
 class BurgerBuilder extends Component {
   state = {
-    ingridients: {},
+    ingridients: null,
     totalPrice: 4,
     purchasable: false,
     purchasing: false,
@@ -58,42 +58,9 @@ class BurgerBuilder extends Component {
   }
 
   continuePurchasing = () => {
-    // this.setState({
-    //   loading: true,
-    // });
-
-    // const data = {
-    //   ingridients: this.state.ingridients,
-    //   date: String(new Date()),
-    //   totalPrice: this.state.totalPrice,
-    //   customer: {
-    //     name: 'Roman',
-    //     address: {
-    //       country: 'Russia',
-    //       street: 'Teststreet',
-    //       zip: '123123',
-    //     },
-    //     email: 'rm07ru@gmail.com',
-    //   },
-    //   deliveryMethod: 'fastest',
-    // };
-
-    // axios.post('/orders.json', data)
-    //   .then(() => {
-    //     this.setState({
-    //       loading: false,
-    //       purchasing: false,
-    //     });
-    //   })
-    //   .catch(() => {
-    //     this.setState({
-    //       loading: false,
-    //       purchasing: false,
-    //     });
-    //   });
-
     const { ingridients } = this.state;
     const queryParams = [];
+    const price = this.state.totalPrice;
 
     Object.keys(ingridients).forEach((ingridientKey) => {
       queryParams.push(`${encodeURIComponent(ingridientKey)}=${encodeURIComponent(ingridients[ingridientKey])}`);
@@ -101,7 +68,7 @@ class BurgerBuilder extends Component {
 
     this.props.history.push({
       pathname: '/checkout',
-      search: `?${queryParams.join('&')}`,
+      search: `?${queryParams.join('&')}&price=${price}`,
     });
   }
 

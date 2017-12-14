@@ -16,22 +16,38 @@ class Checkout extends Component {
 
     const query = new URLSearchParams(this.props.location.search);
     const ingridients = {};
+    let price;
 
     [...query.entries()].forEach((key) => {
-      ingridients[key[0].trim()] = +key[1].trim();
+      if (key[0] === 'price') {
+        [, price] = key;
+      } else {
+        ingridients[key[0]] = +key[1];
+      }
     });
 
 
     this.state = {
       ingridients,
+      totalPrice: price,
     };
   }
 
   render() {
     return (
+
       <div>
         <CheckoutSummary ingridients={this.state.ingridients} />
-        <Route path={`${this.props.match.url}/contact-data`} component={ContactData} />
+        <Route
+          path={`${this.props.match.url}/contact-data`}
+          render={props => (
+            <ContactData
+              totalPrice={this.state.totalPrice}
+              ingridients={this.state.ingridients}
+              {...props}
+            />
+          )}
+        />
       </div>
     );
   }
