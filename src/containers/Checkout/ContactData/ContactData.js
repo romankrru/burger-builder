@@ -9,6 +9,7 @@ import styles from './ContactData.css';
 class ContactData extends Component {
   static propTypes = {
     ingridients: PropTypes.objectOf(PropTypes.number).isRequired,
+    history: PropTypes.objectOf(PropTypes.any).isRequired,
     totalPrice: PropTypes.string.isRequired,
   }
 
@@ -28,6 +29,8 @@ class ContactData extends Component {
     this.setState({
       loading: true,
     });
+
+    console.log('orderHandler');
 
     const data = {
       ingridients: this.props.ingridients,
@@ -50,11 +53,13 @@ class ContactData extends Component {
         this.setState({
           loading: false,
         });
+        this.props.history.replace('/');
       })
       .catch(() => {
         this.setState({
           loading: false,
         });
+        this.props.history.replace('/');
       });
   }
 
