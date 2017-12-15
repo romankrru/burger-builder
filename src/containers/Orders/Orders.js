@@ -1,5 +1,3 @@
-/* eslint-disable */
-
 import React, { Component } from 'react';
 import axios from '../../axios-orders';
 
@@ -18,22 +16,19 @@ class Orders extends Component {
       .then((res) => {
         const fetchedOrders = [];
 
-        Object.keys(res.data).forEach(key => {
+        Object.keys(res.data).forEach((key) => {
           fetchedOrders.push({
             ...res.data[key],
             id: key,
           });
-        })
-
-        console.log(fetchedOrders);
-        
+        });
 
         this.setState({
           loading: false,
           orders: fetchedOrders,
         });
       })
-      .catch((err) => {        
+      .catch(() => {
         this.setState({ loading: false });
       });
   }
@@ -43,6 +38,10 @@ class Orders extends Component {
 
     if (this.state.loading) {
       orders = null;
+    } else {
+      orders = this.state.orders.map(ord => (
+        <Order key={ord.id} ingridients={ord.ingridients} price={ord.totalPrice} />
+      ));
     }
 
     return (

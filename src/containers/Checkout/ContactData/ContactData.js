@@ -30,8 +30,6 @@ class ContactData extends Component {
       loading: true,
     });
 
-    console.log('orderHandler');
-
     const data = {
       ingridients: this.props.ingridients,
       date: String(new Date()),
