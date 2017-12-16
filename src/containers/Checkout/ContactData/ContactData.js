@@ -7,6 +7,8 @@ import Button from '../../../components/UI/Button/Button';
 import Input from '../../../components/UI/Input/Input';
 import styles from './ContactData.css';
 
+/* eslint-disable */
+
 class ContactData extends Component {
   static propTypes = {
     ingridients: PropTypes.objectOf(PropTypes.number).isRequired,
@@ -15,11 +17,56 @@ class ContactData extends Component {
   }
 
   state = {
-    name: '',
-    email: '',
-    address: {
-      street: '',
-      postalCode: '',
+    orderForm: {
+      name: {
+        elementType: 'input',
+        elementConfig: {
+          type: 'text',
+          placeholder: 'Name'
+        },
+        value: '',
+      },
+      email: {
+        elementType: 'input',
+        elementConfig: {
+          type: 'email',
+          placeholder: 'Your E-Mail',
+        },
+        value: '',
+      },
+      country: {
+        elementType: 'input',
+        elementConfig: {
+          type: 'text',
+          placeholder: 'Russia',
+        },
+        value: '',
+      },
+      street: {
+        elementType: 'input',
+        elementConfig: {
+          type: 'text',
+          placeholder: 'street',
+        },
+        value: '',
+      },
+      zipCode: {
+        elementType: 'input',
+        elementConfig: {
+          type: 'text',
+          placeholder: 'ZIP CODE',
+        },
+        value: '',
+      },
+      deliveryMethod: {
+        elementType: 'select',
+        elementConfig: {
+          options: [
+            {value: 'fastes', displayValue: 'Fastest'},
+            {value: 'cheapest', displayValue: 'Cheapest'},
+          ],
+        }
+      }
     },
     loading: false,
   }
@@ -33,18 +80,7 @@ class ContactData extends Component {
 
     const data = {
       ingridients: this.props.ingridients,
-      date: String(new Date()),
       totalPrice: this.props.totalPrice,
-      customer: {
-        name: 'Roman',
-        address: {
-          country: 'Russia',
-          street: 'Teststreet',
-          zip: '123123',
-        },
-        email: 'rm07ru@gmail.com',
-      },
-      deliveryMethod: 'fastest',
     };
 
     axios.post('/orders.json', data)
