@@ -14,8 +14,6 @@ const Input = ({ inputType, changed, label, value, valid, shouldValidate, isTouc
     attachedClasses.push(styles.Invalid);
   }
 
-  console.log(attachedClasses);
-
   switch (inputType) {
     case 'input':
       inputElement = (

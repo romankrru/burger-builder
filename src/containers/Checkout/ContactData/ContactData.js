@@ -17,6 +17,8 @@ class ContactData extends Component {
   }
 
   state = {
+    loading: false,
+    formIsValid: false,
     orderForm: {
       name: {
         elementType: 'input',
@@ -95,7 +97,6 @@ class ContactData extends Component {
         }
       }
     },
-    loading: false,
   }
 
   orderHandler = (e) => {
@@ -143,10 +144,22 @@ class ContactData extends Component {
       updatedElement.touched = true;
     }
 
-    updatedOrderForm[id] = updatedElement;    
+    updatedOrderForm[id] = updatedElement;
+
+    let formIsValid = true;
+
+    Object.keys(updatedOrderForm).forEach((el) => {
+      if (
+        updatedOrderForm[el].hasOwnProperty('valid') &&
+        !updatedOrderForm[el].valid && formIsValid
+      ) {
+        formIsValid = false;
+      }
+    });
 
     this.setState({
       orderForm: updatedOrderForm,
+      formIsValid: formIsValid,
     });
   }
 
@@ -191,7 +204,7 @@ class ContactData extends Component {
       form = (
         <form onSubmit={this.orderHandler}>
           {formElements}
-          <Button>Order now</Button>
+          <Button disabled={!this.state.formIsValid}>Order now</Button>
         </form>
       );
     }
