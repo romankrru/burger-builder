@@ -5,14 +5,16 @@ import styles from './Input.css';
 
 /* eslint-disable */
 
-const Input = ({ inputType, changed, label, value, valid, shouldValidate, name, elementConfig }) => {
+const Input = ({ inputType, changed, label, value, valid, shouldValidate, isTouched, name, elementConfig }) => {
   let inputElement = null;
 
   const attachedClasses = [styles.InputElement];
 
-  if (!valid && shouldValidate) {
+  if (!valid && shouldValidate && isTouched) {
     attachedClasses.push(styles.Invalid);
   }
+
+  console.log(attachedClasses);
 
   switch (inputType) {
     case 'input':
