@@ -3,18 +3,22 @@ import PropTypes from 'prop-types';
 
 import styles from './Input.css';
 
-const Input = ({ inputType, label, ...props }) => {
+/* eslint-disable */
+
+const Input = ({ inputType, label, value, elementConfig }) => {
   let inputElement = null;
+
+  console.log()
 
   switch (inputType) {
     case 'input':
-      inputElement = <input className={styles.InputElement} {...props} />;
+      inputElement = <input className={styles.InputElement} {...elementConfig} />;
       break;
     case 'textarea':
-      inputElement = <textarea className={styles.InputElement} {...props} />;
+      inputElement = <textarea className={styles.InputElement} {...elementConfig} />;
       break;
     default:
-      inputElement = <input className={styles.InputElement} {...props} />;
+      inputElement = <input className={styles.InputElement} {...elementConfig} />;
   }
 
 

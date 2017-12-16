@@ -50,7 +50,7 @@ class ContactData extends Component {
         },
         value: '',
       },
-      zipCode: {
+      zipcode: {
         elementType: 'input',
         elementConfig: {
           type: 'text',
@@ -58,7 +58,7 @@ class ContactData extends Component {
         },
         value: '',
       },
-      deliveryMethod: {
+      delivery: {
         elementType: 'select',
         elementConfig: {
           options: [
@@ -102,12 +102,26 @@ class ContactData extends Component {
     let form = <Spinner />;
 
     if (this.state.loading === false) {
+      const formElements = Object.keys(this.state.orderForm).map(inputName => {
+        console.log(inputName)
+        return (
+          <Input
+            key={inputName}
+            name={inputName}
+            inputType={this.state.orderForm[inputName].elementType}
+            value={this.state.orderForm[inputName].value}
+            elementConfig={this.state.orderForm[inputName].elementConfig}
+          />
+        )
+      })
+
       form = (
         <form>
-          <Input value={this.state.name} type="text" name="name" placeholder="Name" />
+          {formElements}
+          {/* <Input value={this.state.name} type="text" name="name" placeholder="Name" />
           <Input value={this.state.email} type="email" name="email" placeholder="Email" />
           <Input value={this.state.address.street} type="text" name="street" placeholder="Street" />
-          <Input value={this.state.address.postalCode} type="text" name="postal" placeholder="Postal code" />
+          <Input value={this.state.address.postalCode} type="text" name="postal" placeholder="Postal code" /> */}
           <Button clicked={this.orderHandler}>Order now</Button>
         </form>
       );
