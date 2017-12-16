@@ -12,10 +12,19 @@ const Input = ({ inputType, label, value, elementConfig }) => {
 
   switch (inputType) {
     case 'input':
-      inputElement = <input className={styles.InputElement} {...elementConfig} />;
+      inputElement = <input value={value} className={styles.InputElement} {...elementConfig} />;
       break;
     case 'textarea':
-      inputElement = <textarea className={styles.InputElement} {...elementConfig} />;
+      inputElement = <textarea value={value} className={styles.InputElement} {...elementConfig} />;
+      break;
+    case 'select':
+      inputElement = (
+        <select className={styles.InputElement} value={value}>
+          {elementConfig.options.map(option => (
+            <option key={option.value} value={option.value}>{option.displayValue}</option>
+          ))}
+        </select>
+      );
       break;
     default:
       inputElement = <input className={styles.InputElement} {...elementConfig} />;
