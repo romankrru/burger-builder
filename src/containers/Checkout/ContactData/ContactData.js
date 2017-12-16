@@ -152,11 +152,11 @@ class ContactData extends Component {
     }
 
     if (rules.minLength) {
-      isValid = value.length >= rules.minLength && isValid;;
+      isValid = value.length >= rules.minLength && isValid;
     }
 
     if (rules.maxLength) {
-      isValid = value.length <= rules.maxLength && isValid;;
+      isValid = value.length <= rules.maxLength && isValid;
     }
 
     return isValid;
@@ -174,6 +174,8 @@ class ContactData extends Component {
             inputType={this.state.orderForm[inputName].elementType}
             value={this.state.orderForm[inputName].value}
             elementConfig={this.state.orderForm[inputName].elementConfig}
+            valid={this.state.orderForm[inputName].valid}
+            shouldValidate={this.state.orderForm[inputName].validation}
             changed={this.onInputChangeHandler}
           />
         )

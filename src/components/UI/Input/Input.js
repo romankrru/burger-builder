@@ -5,8 +5,14 @@ import styles from './Input.css';
 
 /* eslint-disable */
 
-const Input = ({ inputType, changed, label, value, name, elementConfig }) => {
+const Input = ({ inputType, changed, label, value, valid, shouldValidate, name, elementConfig }) => {
   let inputElement = null;
+
+  const attachedClasses = [styles.InputElement];
+
+  if (!valid && shouldValidate) {
+    attachedClasses.push(styles.Invalid);
+  }
 
   switch (inputType) {
     case 'input':
@@ -15,7 +21,7 @@ const Input = ({ inputType, changed, label, value, name, elementConfig }) => {
           name={name}
           onChange={(e) => changed(e, name)}
           value={value}
-          className={styles.InputElement}
+          className={attachedClasses.join(' ')}
           {...elementConfig}
         />
       );
@@ -26,7 +32,7 @@ const Input = ({ inputType, changed, label, value, name, elementConfig }) => {
           name={name}
           onChange={(e) => changed(e, name)}
           value={value}
-          className={styles.InputElement}
+          className={attachedClasses.join(' ')}
           {...elementConfig}
         />
       );
@@ -36,7 +42,7 @@ const Input = ({ inputType, changed, label, value, name, elementConfig }) => {
         <select
           name={name}
           onChange={(e) => changed(e, name)}
-          className={styles.InputElement}
+          className={attachedClasses.join(' ')}
           value={value}
         >
           {elementConfig.options.map(option => (
