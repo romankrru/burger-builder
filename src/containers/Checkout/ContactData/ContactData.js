@@ -78,9 +78,16 @@ class ContactData extends Component {
       loading: true,
     });
 
+    const formData = {};
+    
+    Object.keys(this.state.orderForm).forEach(element => {
+      formData[element] = this.state.orderForm[element].value;
+    });
+
     const data = {
       ingridients: this.props.ingridients,
       totalPrice: this.props.totalPrice,
+      customer: formData,
     };
 
     axios.post('/orders.json', data)
@@ -128,9 +135,9 @@ class ContactData extends Component {
       })
 
       form = (
-        <form>
+        <form onSubmit={this.orderHandler}>
           {formElements}
-          <Button clicked={this.orderHandler}>Order now</Button>
+          <Button>Order now</Button>
         </form>
       );
     }
