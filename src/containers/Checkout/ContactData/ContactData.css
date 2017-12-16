@@ -9,11 +9,3 @@
   text-align: center;
   box-sizing: border-box;
 }
-
-.ContactData input {
-  box-sizing: border-box;
-  display: block;
-  padding: 10px;
-  margin-bottom: 10px;
-  width: 100%;
-}
