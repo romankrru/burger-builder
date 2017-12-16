@@ -25,6 +25,10 @@ class ContactData extends Component {
           placeholder: 'Name'
         },
         value: '',
+        validation: {
+          required: true,
+        },
+        valid: false,
       },
       email: {
         elementType: 'input',
@@ -33,6 +37,10 @@ class ContactData extends Component {
           placeholder: 'Your E-Mail',
         },
         value: '',
+        validation: {
+          required: true,
+        },
+        valid: false,        
       },
       country: {
         elementType: 'input',
@@ -41,6 +49,10 @@ class ContactData extends Component {
           placeholder: 'Russia',
         },
         value: '',
+        validation: {
+          required: true,
+        },
+        valid: false,        
       },
       street: {
         elementType: 'input',
@@ -49,6 +61,10 @@ class ContactData extends Component {
           placeholder: 'street',
         },
         value: '',
+        validation: {
+          required: true,
+        },
+        valid: false,        
       },
       zipcode: {
         elementType: 'input',
@@ -57,6 +73,12 @@ class ContactData extends Component {
           placeholder: 'ZIP CODE',
         },
         value: '',
+        validation: {
+          required: true,
+          minLength: 5,
+          maxLength: 5,
+        },
+        valid: false,        
       },
       delivery: {
         elementType: 'select',
@@ -108,13 +130,36 @@ class ContactData extends Component {
   onInputChangeHandler = (e, id) => {
     const updatedOrderForm = {...this.state.orderForm};
     const updatedElement = {...updatedOrderForm[id]};
+
     updatedElement.value = e.target.value;
 
-    updatedOrderForm[id] = updatedElement;
+    if (updatedElement.validation) {
+      updatedElement.valid = this.checkValidity(e.target.value, updatedOrderForm[id].validation);
+    }
+
+    updatedOrderForm[id] = updatedElement;    
 
     this.setState({
       orderForm: updatedOrderForm,
     });
+  }
+
+  checkValidity(value, rules) {
+    let isValid = false;
+    
+    if (rules.required === true) {
+      isValid = value.trim() !== '';
+    }
+
+    if (rules.minLength) {
+      isValid = value.length >= rules.minLength;
+    }
+
+    if (rules.maxLength) {
+      isValid = value.length <= rules.maxLength;
+    }
+
+    return isValid;
   }
 
   render() {
