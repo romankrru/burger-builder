@@ -5,21 +5,40 @@ import styles from './Input.css';
 
 /* eslint-disable */
 
-const Input = ({ inputType, label, value, elementConfig }) => {
+const Input = ({ inputType, changed, label, value, name, elementConfig }) => {
   let inputElement = null;
-
-  console.log()
 
   switch (inputType) {
     case 'input':
-      inputElement = <input value={value} className={styles.InputElement} {...elementConfig} />;
+      inputElement = (
+        <input
+          name={name}
+          onChange={(e) => changed(e, name)}
+          value={value}
+          className={styles.InputElement}
+          {...elementConfig}
+        />
+      );
       break;
     case 'textarea':
-      inputElement = <textarea value={value} className={styles.InputElement} {...elementConfig} />;
+      inputElement = (
+        <textarea
+          name={name}
+          onChange={(e) => changed(e, name)}
+          value={value}
+          className={styles.InputElement}
+          {...elementConfig}
+        />
+      );
       break;
     case 'select':
       inputElement = (
-        <select className={styles.InputElement} value={value}>
+        <select
+          name={name}
+          onChange={(e) => changed(e, name)}
+          className={styles.InputElement}
+          value={value}
+        >
           {elementConfig.options.map(option => (
             <option key={option.value} value={option.value}>{option.displayValue}</option>
           ))}

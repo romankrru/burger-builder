@@ -98,12 +98,23 @@ class ContactData extends Component {
       });
   }
 
+  onInputChangeHandler = (e, id) => {
+    const updatedOrderForm = {...this.state.orderForm};
+    const updatedElement = {...updatedOrderForm[id]};
+    updatedElement.value = e.target.value;
+
+    updatedOrderForm[id] = updatedElement;
+
+    this.setState({
+      orderForm: updatedOrderForm,
+    });
+  }
+
   render() {
     let form = <Spinner />;
 
     if (this.state.loading === false) {
       const formElements = Object.keys(this.state.orderForm).map(inputName => {
-        console.log(inputName)
         return (
           <Input
             key={inputName}
@@ -111,6 +122,7 @@ class ContactData extends Component {
             inputType={this.state.orderForm[inputName].elementType}
             value={this.state.orderForm[inputName].value}
             elementConfig={this.state.orderForm[inputName].elementConfig}
+            changed={this.onInputChangeHandler}
           />
         )
       })
@@ -118,10 +130,6 @@ class ContactData extends Component {
       form = (
         <form>
           {formElements}
-          {/* <Input value={this.state.name} type="text" name="name" placeholder="Name" />
-          <Input value={this.state.email} type="email" name="email" placeholder="Email" />
-          <Input value={this.state.address.street} type="text" name="street" placeholder="Street" />
-          <Input value={this.state.address.postalCode} type="text" name="postal" placeholder="Postal code" /> */}
           <Button clicked={this.orderHandler}>Order now</Button>
         </form>
       );
