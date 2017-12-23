@@ -1,13 +1,14 @@
+/* eslint-disable */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import axios from '../../../axios-orders';
+import { connect } from 'react-redux';
 
 import Spinner from '../../../components/UI/Spinner/Spinner';
 import Button from '../../../components/UI/Button/Button';
 import Input from '../../../components/UI/Input/Input';
 import styles from './ContactData.css';
 
-/* eslint-disable */
 
 class ContactData extends Component {
   static propTypes = {
@@ -44,7 +45,7 @@ class ContactData extends Component {
           required: true,
         },
         valid: false,
-        touched: false,             
+        touched: false,
       },
       country: {
         elementType: 'input',
@@ -57,7 +58,7 @@ class ContactData extends Component {
           required: true,
         },
         valid: false,
-        touched: false,             
+        touched: false,
       },
       street: {
         elementType: 'input',
@@ -70,7 +71,7 @@ class ContactData extends Component {
           required: true,
         },
         valid: false,
-        touched: false,             
+        touched: false,
       },
       zipcode: {
         elementType: 'input',
@@ -85,14 +86,14 @@ class ContactData extends Component {
           maxLength: 5,
         },
         valid: false,
-        touched: false,        
+        touched: false,
       },
       delivery: {
         elementType: 'select',
         elementConfig: {
           options: [
-            {value: 'fastes', displayValue: 'Fastest'},
-            {value: 'cheapest', displayValue: 'Cheapest'},
+            { value: 'fastes', displayValue: 'Fastest' },
+            { value: 'cheapest', displayValue: 'Cheapest' },
           ],
         },
         value: 'fastes',
@@ -108,14 +109,14 @@ class ContactData extends Component {
     });
 
     const formData = {};
-    
+
     Object.keys(this.state.orderForm).forEach(element => {
       formData[element] = this.state.orderForm[element].value;
     });
 
     const data = {
-      ingridients: this.props.ingridients,
-      totalPrice: this.props.totalPrice,
+      ingridients: this.props.ings,
+      totalPrice: this.props.price,
       customer: formData,
     };
 
@@ -135,8 +136,8 @@ class ContactData extends Component {
   }
 
   onInputChangeHandler = (e, id) => {
-    const updatedOrderForm = {...this.state.orderForm};
-    const updatedElement = {...updatedOrderForm[id]};
+    const updatedOrderForm = { ...this.state.orderForm };
+    const updatedElement = { ...updatedOrderForm[id] };
 
     updatedElement.value = e.target.value;
 
@@ -166,7 +167,7 @@ class ContactData extends Component {
 
   checkValidity(value, rules) {
     let isValid = true;
-    
+
     if (rules.required === true) {
       isValid = value.trim() !== '' && isValid;
     }
@@ -218,4 +219,9 @@ class ContactData extends Component {
   }
 }
 
-export default ContactData;
+const mapStateToProps = state => ({
+  price: state.totalPrice,
+  ings: state.ingredients,
+});
+
+export default connect(mapStateToProps)(ContactData);
