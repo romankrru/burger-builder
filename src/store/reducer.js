@@ -18,15 +18,20 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         ingredients: {
+          ...state.ingredients,
           [action.ingredientName]: state.ingredients[action.ingredientName] + 1
         }
       };
     }
 
     case actionTypes.REMOVE_INGRIDIENT: {
+      console.log('remove')
       return {
         ...state,
-        [action.ingredientName]: state.ingredients[action.ingredientName] - 1
+        ingredients: {
+          ...state.ingredients,
+          [action.ingredientName]: state.ingredients[action.ingredientName] - 1
+        }
       }
     }
 

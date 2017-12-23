@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import React from 'react';
 import PropTypes from 'prop-types';
 
@@ -11,10 +13,11 @@ const controls = [
   { label: 'Bacon', type: 'bacon' },
 ];
 
-const BuildControls = props => (
-  <div className={styles.BuildControls} >
-    <p>Total price: {props.totalPrice.toFixed(2)}</p>
-    {
+const BuildControls = props => {
+  return (
+    <div className={styles.BuildControls} >
+      <p>Total price: {props.totalPrice.toFixed(2)}</p>
+      {
         controls.map((control, index) => (
           <BuildControl
             key={index}
@@ -24,17 +27,18 @@ const BuildControls = props => (
             onIngridientAdd={props.onIngridientAdd}
             onIngridientRemove={props.onIngridientRemove}
           />
-          ))
+        ))
       }
-    <button
-      disabled={!props.purchasable}
-      onClick={props.purchasing}
-      className={styles.ordernow}
-    >
+      <button
+        disabled={!props.purchasable}
+        onClick={props.purchasing}
+        className={styles.ordernow}
+      >
         ORDER NOW!
     </button>
-  </div>
-);
+    </div>
+  );
+};
 
 BuildControls.defaultProps = {
   purchasable: false,
