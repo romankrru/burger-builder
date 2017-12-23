@@ -1,5 +1,12 @@
 /* eslint-disable */
 
+const INGRIDIENT_PRICES = {
+  salad: 0.3,
+  bacon: 0.9,
+  meat: 1.2,
+  cheese: 0.6,
+};
+
 import * as actionTypes from './actions';
 
 const initialState = {
@@ -20,18 +27,19 @@ const reducer = (state = initialState, action) => {
         ingredients: {
           ...state.ingredients,
           [action.ingredientName]: state.ingredients[action.ingredientName] + 1
-        }
+        },
+        totalPrice: state.totalPrice + INGRIDIENT_PRICES[action.ingredientName],
       };
     }
 
     case actionTypes.REMOVE_INGRIDIENT: {
-      console.log('remove')
       return {
         ...state,
         ingredients: {
           ...state.ingredients,
           [action.ingredientName]: state.ingredients[action.ingredientName] - 1
-        }
+        },
+        totalPrice: state.totalPrice - INGRIDIENT_PRICES[action.ingredientName],        
       }
     }
 
