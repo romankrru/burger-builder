@@ -29,14 +29,14 @@ class BurgerBuilder extends Component {
     //   });
   }
 
-  updatePurchasable = (ingridients) => {
-    const sum = Object.keys(ingridients)
-      .map(ingridientKey => ingridients[ingridientKey])
+  updatePurchasable = () => {
+    const ingredients = this.props.ings;
+
+    const sum = Object.keys(ingredients)
+      .map(ingridientKey => ingredients[ingridientKey])
       .reduce((s, el) => s + el, 0);
 
-    this.setState({
-      purchasable: sum > 0,
-    });
+    return sum > 0;
   }
 
   updatePurchasing = () => {
@@ -94,7 +94,7 @@ class BurgerBuilder extends Component {
           <Burger ingridients={this.props.ings} />
           <BuildControls
             purchasing={this.updatePurchasing}
-            purchasable={this.state.purchasable}
+            purchasable={this.updatePurchasable()}
             totalPrice={this.props.price}
             disabledInfo={disabledInfo}
             onIngridientAdd={this.props.onIngridientAdded}
