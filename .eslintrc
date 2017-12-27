@@ -7,6 +7,9 @@
     "document": true,
     "URLSearchParams": true
   },
+  "env": {
+    "browser": true
+  },
   "rules": {
     "linebreak-style": 0,
     "react/no-array-index-key": "off",
