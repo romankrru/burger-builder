@@ -17,7 +17,6 @@ class BurgerBuilder extends Component {
   state = {
     purchasable: false,
     purchasing: false,
-    loading: false,
   }
 
   componentDidMount() {
@@ -88,6 +87,10 @@ class BurgerBuilder extends Component {
       );
     }
 
+    if (this.props.error) {
+      burger = <p>Can't fetch ingredients.</p>
+    }
+
     return (
       <Aux>
         <Modal
@@ -106,19 +109,16 @@ BurgerBuilder.propTypes = {
   history: PropTypes.objectOf(PropTypes.any).isRequired,
 };
 
-const mapStateToProps = state => {
-  return {
+const mapStateToProps = (state) => ({
     ings: state.ingredients,
     price: state.totalPrice,
-  };
-};
+    error: state.error,
+  });
 
-const mapDispatchToProps = dispatch => {
-  return {
+const mapDispatchToProps = (dispatch) => ({
     onIngridientAdded: (ingName) => dispatch(burgerBuilderActions.addIngredient(ingName)),
     onIngridientRemoved: (ingName) => dispatch(burgerBuilderActions.removeIngredient(ingName)),
     onIngredientInited: () => dispatch(burgerBuilderActions.initIngredients())
-  };
-};
+  });
 
 export default connect(mapStateToProps, mapDispatchToProps)(withErrorHandler(BurgerBuilder, axios));
