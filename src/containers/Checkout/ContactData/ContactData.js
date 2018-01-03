@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 import Spinner from '../../../components/UI/Spinner/Spinner';
 import Button from '../../../components/UI/Button/Button';
 import Input from '../../../components/UI/Input/Input';
+import withErrorHandler from '../../../hoc/withErrorHandler/withErrorHandler';
 import styles from './ContactData.css';
 
 
@@ -211,4 +212,4 @@ const mapStateToProps = state => ({
   ings: state.ingredients,
 });
 
-export default connect(mapStateToProps)(ContactData);
+export default connect(mapStateToProps)(withErrorHandler(ContactData, axios));
