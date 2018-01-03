@@ -21,12 +21,7 @@ class BurgerBuilder extends Component {
   }
 
   componentDidMount() {
-    // axios.get('https://react-burger-builder-fff98.firebaseio.com/ingridients.json')
-    //   .then((res) => {
-    //     this.setState({
-    //       ingridients: res.data,
-    //     });
-    //   });
+    this.props.onIngredientInited();
   }
 
   updatePurchasable = () => {
@@ -121,7 +116,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     onIngridientAdded: (ingName) => dispatch(burgerBuilderActions.addIngredient(ingName)),
-    onIngridientRemoved: (ingName) => dispatch(burgerBuilderActions.removeIngredient(ingName)),    
+    onIngridientRemoved: (ingName) => dispatch(burgerBuilderActions.removeIngredient(ingName)),
+    onIngredientInited: () => dispatch(burgerBuilderActions.initIngredients())
   };
 };
 
