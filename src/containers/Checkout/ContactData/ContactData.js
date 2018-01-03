@@ -120,19 +120,6 @@ class ContactData extends Component {
       customer: formData,
     };
 
-    axios.post('/orders.json', data)
-      .then(() => {
-        this.setState({
-          loading: false,
-        });
-        this.props.history.replace('/');
-      })
-      .catch(() => {
-        this.setState({
-          loading: false,
-        });
-        this.props.history.replace('/');
-      });
   }
 
   onInputChangeHandler = (e, id) => {
