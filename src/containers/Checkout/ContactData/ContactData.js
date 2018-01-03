@@ -8,6 +8,7 @@ import Spinner from '../../../components/UI/Spinner/Spinner';
 import Button from '../../../components/UI/Button/Button';
 import Input from '../../../components/UI/Input/Input';
 import withErrorHandler from '../../../hoc/withErrorHandler/withErrorHandler';
+import * as actions from '../../../store/actions';
 import styles from './ContactData.css';
 
 
@@ -121,6 +122,8 @@ class ContactData extends Component {
       customer: formData,
     };
 
+
+    this.props.onOrderBurger(data);
   }
 
   onInputChangeHandler = (e, id) => {
@@ -210,6 +213,10 @@ class ContactData extends Component {
 const mapStateToProps = state => ({
   price: state.totalPrice,
   ings: state.ingredients,
+});
+
+const mapDispatchToProps = dispatch => ({
+  onOrderBurger: (orderData) => dispatch(actions.purchaseBurgerStart(orderData)),
 });
 
 export default connect(mapStateToProps)(withErrorHandler(ContactData, axios));
