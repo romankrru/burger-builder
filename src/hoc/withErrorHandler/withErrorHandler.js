@@ -9,7 +9,7 @@ const withErrorHandler = (WrappedComponent, axios) => class extends React.Compon
       error: null,
     }
 
-    componentDidMount() {
+    componentWillMount() {
       this.reqInterceptor = axios.interceptors.request.use((req) => {
         this.setState({
           error: null,
@@ -45,7 +45,7 @@ const withErrorHandler = (WrappedComponent, axios) => class extends React.Compon
       return (
         <Aux>
           <Modal
-            show={this.state.error}
+            show={!!this.state.error}
             backdropClick={this.backdropClick}
           >
             {this.state.error ? this.state.error.message : null}
