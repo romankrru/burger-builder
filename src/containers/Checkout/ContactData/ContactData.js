@@ -177,7 +177,7 @@ class ContactData extends Component {
   render() {
     let form = <Spinner />;
 
-    if (this.state.loading === false) {
+    if (this.props.loading === false) {
       const formElements = Object.keys(this.state.orderForm).map(inputName => {
         return (
           <Input
@@ -213,6 +213,7 @@ class ContactData extends Component {
 const mapStateToProps = state => ({
   price: state.totalPrice,
   ings: state.ingredients,
+  loading: state.loading,
 });
 
 const mapDispatchToProps = dispatch => ({
