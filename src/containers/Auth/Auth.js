@@ -1,6 +1,8 @@
 /* eslint-disable */
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
+import * as actions from '../../store/actions';
 import Input from '../../components/UI/Input/Input';
 import Button from '../../components/UI/Button/Button';
 import styles from './Auth.css';
@@ -74,6 +76,15 @@ class Auth extends Component {
     });
   }
 
+  onFormSubmit = (e) => {
+    e.preventDefault();
+
+    this.props.onAuth(
+      this.state.controls.email.value,
+      this.state.controls.password.value,
+    );
+  }
+
   render() {
     const formElements = Object.keys(this.state.controls).map(inputName => {
       return (
@@ -93,7 +104,7 @@ class Auth extends Component {
 
     return (
       <div className={styles.Auth}>
-        <form>
+        <form onSubmit={this.onFormSubmit}>
           {formElements}
           <Button>Sign in</Button>
         </form>
@@ -102,4 +113,8 @@ class Auth extends Component {
   }
 }
 
-export default Auth;
+const mapDispatchToProps = dispatch => ({
+  onAuth: (email, password) => dispatch(actions.auth(email, password)),
+});
+
+export default connect(null, mapDispatchToProps)(Auth);
