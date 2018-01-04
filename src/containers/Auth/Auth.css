@@ -9,3 +9,7 @@
   text-align: center;
   box-sizing: border-box;
 }
+
+.Auth button {
+  margin-bottom: 10px;
+}

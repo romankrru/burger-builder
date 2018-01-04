@@ -9,6 +9,7 @@ import styles from './Auth.css';
 
 class Auth extends Component {
   state = {
+    isSignIn: false,
     controls: {
       email: {
         elementType: 'input',
@@ -82,7 +83,14 @@ class Auth extends Component {
     this.props.onAuth(
       this.state.controls.email.value,
       this.state.controls.password.value,
+      this.state.isSignIn,
     );
+  }
+
+  onSwitchButtonClick = () => {
+    this.setState(prevState => ({
+      isSignIn: !prevState.isSignIn,
+    }));
   }
 
   render() {
@@ -108,13 +116,19 @@ class Auth extends Component {
           {formElements}
           <Button>Submit</Button>
         </form>
+        <Button
+          btnType="Danger"
+          clicked={this.onSwitchButtonClick}
+        >
+          Switch to {this.state.isSignIn ? 'signup' : 'signin'}
+        </Button>
       </div>
     );
   }
 }
 
 const mapDispatchToProps = dispatch => ({
-  onAuth: (email, password) => dispatch(actions.auth(email, password)),
+  onAuth: (email, password, isSignIn) => dispatch(actions.auth(email, password, isSignIn)),
 });
 
 export default connect(null, mapDispatchToProps)(Auth);
