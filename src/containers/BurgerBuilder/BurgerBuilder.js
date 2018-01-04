@@ -110,15 +110,15 @@ BurgerBuilder.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-    ings: state.ingredients,
-    price: state.totalPrice,
-    error: state.error,
-  });
+  ings: state.burgerBuilder.ingredients,
+  price: state.burgerBuilder.totalPrice,
+  error: state.burgerBuilder.error,
+});
 
 const mapDispatchToProps = (dispatch) => ({
-    onIngridientAdded: (ingName) => dispatch(burgerBuilderActions.addIngredient(ingName)),
-    onIngridientRemoved: (ingName) => dispatch(burgerBuilderActions.removeIngredient(ingName)),
-    onIngredientInited: () => dispatch(burgerBuilderActions.initIngredients())
-  });
+  onIngridientAdded: (ingName) => dispatch(burgerBuilderActions.addIngredient(ingName)),
+  onIngridientRemoved: (ingName) => dispatch(burgerBuilderActions.removeIngredient(ingName)),
+  onIngredientInited: () => dispatch(burgerBuilderActions.initIngredients())
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(withErrorHandler(BurgerBuilder, axios));

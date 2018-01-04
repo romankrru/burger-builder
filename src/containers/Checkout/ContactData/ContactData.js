@@ -211,13 +211,13 @@ class ContactData extends Component {
 }
 
 const mapStateToProps = state => ({
-  price: state.totalPrice,
-  ings: state.ingredients,
-  loading: state.loading,
+  price: state.burgerBuilder.totalPrice,
+  ings: state.burgerBuilder.ingredients,
+  loading: state.order.loading,
 });
 
 const mapDispatchToProps = dispatch => ({
   onOrderBurger: (orderData) => dispatch(actions.purchaseBurger(orderData)),
 });
 
-export default connect(mapStateToProps)(withErrorHandler(ContactData, axios));
+export default connect(mapStateToProps, mapDispatchToProps)(withErrorHandler(ContactData, axios));
