@@ -106,7 +106,7 @@ class Auth extends Component {
       <div className={styles.Auth}>
         <form onSubmit={this.onFormSubmit}>
           {formElements}
-          <Button>Sign in</Button>
+          <Button>Submit</Button>
         </form>
       </div>
     );
