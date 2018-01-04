@@ -8,4 +8,5 @@ export {
 export {
   purchaseBurger,
   purchaseBurgerInit,
+  fetchOrders,
 } from './orders.js';
