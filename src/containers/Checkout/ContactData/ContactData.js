@@ -216,7 +216,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  onOrderBurger: (orderData) => dispatch(actions.purchaseBurgerStart(orderData)),
+  onOrderBurger: (orderData) => dispatch(actions.purchaseBurger(orderData)),
 });
 
 export default connect(mapStateToProps)(withErrorHandler(ContactData, axios));
