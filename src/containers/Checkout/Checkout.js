@@ -1,7 +1,7 @@
 /* eslint-disable */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Route } from 'react-router-dom';
+import { Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import CheckoutSummary from '../../components/Order/CheckoutSummary/CheckoutSummary';
@@ -14,15 +14,21 @@ class Checkout extends Component {
   }
 
   render() {
-    return (
-      <div>
-        <CheckoutSummary ingridients={this.props.ings} />
-        <Route
-          path={`${this.props.match.url}/contact-data`}
-          component={ContactData}
-        />
-      </div>
-    );
+    let summary = <Redirect to="/" />
+
+    if (this.props.ings) {
+      summary = (
+        <div>
+          <CheckoutSummary ingridients={this.props.ings} />;
+          <Route
+            path={`${this.props.match.url}/contact-data`}
+            component={ContactData}
+          />
+        </div>
+      );
+    }
+
+    return summary;
   }
 }
 
