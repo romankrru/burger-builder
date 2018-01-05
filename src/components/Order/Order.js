@@ -42,7 +42,7 @@ const Order = (props) => {
 
 
 Order.propTypes = {
-  price: PropTypes.string.isRequired,
+  price: PropTypes.number.isRequired,
   ingridients: PropTypes.objectOf(PropTypes.number).isRequired,
 };
 
