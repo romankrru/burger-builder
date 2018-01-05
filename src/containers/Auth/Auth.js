@@ -129,10 +129,8 @@ class Auth extends Component {
         this.props.error.response.data.error.message
         .split('_')
         .join(' ');
-        
-      errorMsg = (
-        <p style={{color: 'red'}}>{msg}</p>
-      );
+
+      errorMsg = <p style={{color: 'red'}}>{msg}</p>
     }
 
     return (
