@@ -23,7 +23,7 @@ const SideDrawer = (props) => {
       <div className={attachedClasses.join(' ')}>
         <Logo style={{ height: '11%', marginBottom: '40px' }} />
         <nav>
-          <NavItems />
+          <NavItems isAuthenticated={props.isAuthenticated} />
         </nav>
       </div>
     </Aux>
@@ -36,6 +36,7 @@ SideDrawer.defaultProps = {
 };
 
 SideDrawer.propTypes = {
+  isAuthenticated: PropTypes.bool.isRequired,
   showSideDrawer: PropTypes.bool,
   hideSideDrawerHandler: PropTypes.func,
 };

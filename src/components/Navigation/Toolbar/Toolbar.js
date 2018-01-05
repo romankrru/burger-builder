@@ -11,13 +11,14 @@ const Toolbar = props => (
     <Toggle onClick={props.togggleSideDrawer} />
     <Logo />
     <nav className={[styles.Navigation, styles.DesktopOnly].join(' ')}>
-      <NavigationItems />
+      <NavigationItems isAuthenticated={props.isAuthenticated} />
     </nav>
   </header>
 );
 
 Toolbar.propTypes = {
   togggleSideDrawer: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.bool.isRequired,
 };
 
 export default Toolbar;
