@@ -8,7 +8,8 @@ export const authStart = () => ({
 
 export const authSuccess = authData => ({
   type: actionTypes.AUTH_SUCCESS,
-  authData,
+  idToken: authData.idToken,
+  localId: authData.localId,
 });
 
 export const authFail = error => ({

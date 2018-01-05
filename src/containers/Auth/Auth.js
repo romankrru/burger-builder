@@ -112,6 +112,7 @@ class Auth extends Component {
 
     return (
       <div className={styles.Auth}>
+        <h2>{this.state.isSignIn ? 'Sign in' : 'Sign up'}</h2>
         <form onSubmit={this.onFormSubmit}>
           {formElements}
           <Button>Submit</Button>
