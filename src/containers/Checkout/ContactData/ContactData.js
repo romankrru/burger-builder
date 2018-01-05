@@ -14,9 +14,9 @@ import styles from './ContactData.css';
 
 class ContactData extends Component {
   static propTypes = {
-    ingridients: PropTypes.objectOf(PropTypes.number).isRequired,
+    ings: PropTypes.objectOf(PropTypes.number).isRequired,
     history: PropTypes.objectOf(PropTypes.any).isRequired,
-    totalPrice: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
   }
 
   state = {
