@@ -6,6 +6,7 @@ import * as actions from '../../store/actions';
 import Input from '../../components/UI/Input/Input';
 import Button from '../../components/UI/Button/Button';
 import styles from './Auth.css';
+import Spinner from '../../components/UI/Spinner/Spinner';
 
 class Auth extends Component {
   state = {
@@ -110,26 +111,53 @@ class Auth extends Component {
       )
     });
 
+    let form = (
+      <form onSubmit={this.onFormSubmit}>
+        {formElements}
+        <Button>Submit</Button>
+      </form>
+    );
+
+    if (this.props.loading) {
+      form = <Spinner />;
+    }
+
+    let errorMsg = null;
+
+    if (this.props.error) {
+      const msg = 
+        this.props.error.response.data.error.message
+        .split('_')
+        .join(' ');
+        
+      errorMsg = (
+        <p style={{color: 'red'}}>{msg}</p>
+      );
+    }
+
     return (
       <div className={styles.Auth}>
         <h2>{this.state.isSignIn ? 'Sign in' : 'Sign up'}</h2>
-        <form onSubmit={this.onFormSubmit}>
-          {formElements}
-          <Button>Submit</Button>
-        </form>
+        {errorMsg}
+        {form}
         <Button
           btnType="Danger"
           clicked={this.onSwitchButtonClick}
         >
-          Switch to {this.state.isSignIn ? 'signup' : 'signin'}
+          Switch to {this.state.isSignIn ? 'SIGNUP' : 'SIGNIN'}
         </Button>
       </div>
     );
   }
 }
 
+const mapStateToProps = state => ({
+  loading: state.auth.loading,
+  error: state.auth.error,
+});
+
 const mapDispatchToProps = dispatch => ({
   onAuth: (email, password, isSignIn) => dispatch(actions.auth(email, password, isSignIn)),
 });
 
-export default connect(null, mapDispatchToProps)(Auth);
+export default connect(mapStateToProps, mapDispatchToProps)(Auth);
