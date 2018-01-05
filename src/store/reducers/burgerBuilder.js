@@ -35,6 +35,7 @@ const reducer = (state = initialState, action) => {
         ingredients: updatedIngredients,
         totalPrice: state.totalPrice - INGRIDIENT_PRICES[action.ingredientName],
       }
+      return updateObject(state, updatedState);
     }
 
     case actionTypes.SET_INGREDIENTS: {
