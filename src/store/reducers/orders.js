@@ -29,9 +29,8 @@ const reducer = (state = initialState, action) => {
     case actionTypes.PURCHASE_BURGER_START:
       return updateObject(state, { loading: true });
 
-    case actionTypes.PURCHASE_BURGER_SUCCESS: {
+    case actionTypes.PURCHASE_BURGER_SUCCESS:
       return purchaseBurgerSucces(state, action);
-    }
 
     case actionTypes.PURCHASE_BURGER_FAIL:
       return updateObject(state, { loading: false });
