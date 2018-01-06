@@ -114,7 +114,7 @@ class Auth extends Component {
     let form = (
       <form onSubmit={this.onFormSubmit}>
         {formElements}
-        <Button>Submit</Button>
+        <Button>{this.state.isSignIn ? 'Sign in' : 'Sign up'}</Button>
       </form>
     );
 
@@ -142,7 +142,7 @@ class Auth extends Component {
           btnType="Danger"
           clicked={this.onSwitchButtonClick}
         >
-          Switch to {this.state.isSignIn ? 'SIGNUP' : 'SIGNIN'}
+          Switch to {this.state.isSignIn ? 'SIGN UP' : 'SIGN IN'}
         </Button>
       </div>
     );
