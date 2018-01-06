@@ -1,6 +1,7 @@
 /* eslint-disable */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 
 import * as actions from '../../store/actions';
 import Input from '../../components/UI/Input/Input';
@@ -39,6 +40,14 @@ class Auth extends Component {
         valid: false,
         touched: false,
       },
+    }
+  }
+
+  componentDidMount() {
+    if (this.props.building) {
+      this.props.onSetAuthRedirectPath('/checkout')
+    } else {
+      this.props.onSetAuthRedirectPath('/')
     }
   }
 
@@ -125,16 +134,22 @@ class Auth extends Component {
     let errorMsg = null;
 
     if (this.props.error) {
-      const msg = 
+      const msg =
         this.props.error.response.data.error.message
-        .split('_')
-        .join(' ');
+          .split('_')
+          .join(' ');
 
-      errorMsg = <p style={{color: 'red'}}>{msg}</p>
+      errorMsg = <p style={{ color: 'red' }}>{msg}</p>
     }
 
     return (
       <div className={styles.Auth}>
+
+        {this.props.isAuthenticated ?
+          <Redirect to={this.props.authRedirectPath} /> :
+          null
+        }
+
         <h2>{this.state.isSignIn ? 'Sign in' : 'Sign up'}</h2>
         {errorMsg}
         {form}
@@ -152,10 +167,14 @@ class Auth extends Component {
 const mapStateToProps = state => ({
   loading: state.auth.loading,
   error: state.auth.error,
+  isAuthenticated: !!state.auth.token,
+  building: state.burgerBuilder.building,
+  authRedirectPath: state.auth.authRedirectPath,
 });
 
 const mapDispatchToProps = dispatch => ({
   onAuth: (email, password, isSignIn) => dispatch(actions.auth(email, password, isSignIn)),
+  onSetAuthRedirectPath: (path) => dispatch(actions.setAuthRedirectPath(path)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Auth);
