@@ -13,7 +13,7 @@ describe('<NavigationItems />', () => {
   let wrapper;
 
   beforeEach(() => {
-    wrapper = shallow(<NavigationItems />);
+    wrapper = shallow(<NavigationItems isAuthenticated={false} />);
   });
 
   it('should render 2 <NavigationItem /> if not authenticated', () => {
