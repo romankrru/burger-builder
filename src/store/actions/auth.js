@@ -102,5 +102,6 @@ export const authCheckState = () => (dispatch) => {
     idToken,
     localId,
   }));
-  dispatch(checkAuthTimeout(expirationDate.getSeconds() - new Date().getSeconds()));
+
+  dispatch(checkAuthTimeout((expirationDate.getTime() - new Date().getTime()) / 1000));
 };
