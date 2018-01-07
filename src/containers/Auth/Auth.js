@@ -8,6 +8,7 @@ import Input from '../../components/UI/Input/Input';
 import Button from '../../components/UI/Button/Button';
 import styles from './Auth.css';
 import Spinner from '../../components/UI/Spinner/Spinner';
+import checkValidity from '../../shared/chekValidity';
 
 class Auth extends Component {
   state = {
@@ -45,28 +46,10 @@ class Auth extends Component {
 
   componentDidMount() {
     if (this.props.building) {
-      this.props.onSetAuthRedirectPath('/checkout')
+      this.props.onSetAuthRedirectPath('/checkout');
     } else {
-      this.props.onSetAuthRedirectPath('/')
+      this.props.onSetAuthRedirectPath('/');
     }
-  }
-
-  checkValidity(value, rules) {
-    let isValid = true;
-
-    if (rules.required === true) {
-      isValid = value.trim() !== '' && isValid;
-    }
-
-    if (rules.minLength) {
-      isValid = value.length >= rules.minLength && isValid;
-    }
-
-    if (rules.maxLength) {
-      isValid = value.length <= rules.maxLength && isValid;
-    }
-
-    return isValid;
   }
 
   onInputChangeHandler = (e, id) => {
@@ -76,7 +59,7 @@ class Auth extends Component {
     updatedElement.value = e.target.value;
 
     if (updatedElement.validation) {
-      updatedElement.valid = this.checkValidity(e.target.value, updatedControls[id].validation);
+      updatedElement.valid = checkValidity(e.target.value, updatedControls[id].validation);
       updatedElement.touched = true;
     }
 

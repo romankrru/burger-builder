@@ -10,6 +10,7 @@ import Input from '../../../components/UI/Input/Input';
 import withErrorHandler from '../../../hoc/withErrorHandler/withErrorHandler';
 import * as actions from '../../../store/actions';
 import styles from './ContactData.css';
+import checkValidity from '../../../shared/chekValidity';
 
 
 class ContactData extends Component {
@@ -134,7 +135,7 @@ class ContactData extends Component {
     updatedElement.value = e.target.value;
 
     if (updatedElement.validation) {
-      updatedElement.valid = this.checkValidity(e.target.value, updatedOrderForm[id].validation);
+      updatedElement.valid = checkValidity(e.target.value, updatedOrderForm[id].validation);
       updatedElement.touched = true;
     }
 
@@ -155,24 +156,6 @@ class ContactData extends Component {
       orderForm: updatedOrderForm,
       formIsValid: formIsValid,
     });
-  }
-
-  checkValidity(value, rules) {
-    let isValid = true;
-
-    if (rules.required === true) {
-      isValid = value.trim() !== '' && isValid;
-    }
-
-    if (rules.minLength) {
-      isValid = value.length >= rules.minLength && isValid;
-    }
-
-    if (rules.maxLength) {
-      isValid = value.length <= rules.maxLength && isValid;
-    }
-
-    return isValid;
   }
 
   render() {
