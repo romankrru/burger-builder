@@ -120,6 +120,7 @@ class ContactData extends Component {
       ingridients: this.props.ings,
       totalPrice: this.props.price,
       customer: formData,
+      userId: this.props.userId,
     };
 
 
@@ -215,6 +216,7 @@ const mapStateToProps = state => ({
   ings: state.burgerBuilder.ingredients,
   loading: state.order.loading,
   token: state.auth.token,
+  userId: state.auth.userId,
 });
 
 const mapDispatchToProps = dispatch => ({
