@@ -53,8 +53,6 @@ export const auth = (email, password, isSignIn) => (dispatch) => {
     authData,
   )
     .then((res) => {
-      console.log(res);
-
       const {
         expiresIn,
         idToken,
@@ -71,7 +69,6 @@ export const auth = (email, password, isSignIn) => (dispatch) => {
       dispatch(authSuccess(res.data));
     })
     .catch((err) => {
-      console.log(err);
       dispatch(authFail(err));
     });
 };
