@@ -12,7 +12,9 @@ import Logout from './containers/Auth/Logout/Logout';
 import * as actions from './store/actions';
 
 class App extends Component {
-  componentDidMount() {
+  constructor(props) {
+    super(props);
+
     this.props.onTryAutoSignup();
   }
 
