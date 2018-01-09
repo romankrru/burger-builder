@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 
 import styles from './Input.css';
 
-/* eslint-disable */
-
-const Input = ({ inputType, changed, label, value, valid, shouldValidate, isTouched, name, elementConfig }) => {
+const Input = ({
+  inputType, changed, label, value, valid, shouldValidate, isTouched, name, elementConfig,
+}) => {
   let inputElement = null;
 
   const attachedClasses = [styles.InputElement];
@@ -19,7 +19,7 @@ const Input = ({ inputType, changed, label, value, valid, shouldValidate, isTouc
       inputElement = (
         <input
           name={name}
-          onChange={(e) => changed(e, name)}
+          onChange={e => changed(e, name)}
           value={value}
           className={attachedClasses.join(' ')}
           {...elementConfig}
@@ -30,7 +30,7 @@ const Input = ({ inputType, changed, label, value, valid, shouldValidate, isTouc
       inputElement = (
         <textarea
           name={name}
-          onChange={(e) => changed(e, name)}
+          onChange={e => changed(e, name)}
           value={value}
           className={attachedClasses.join(' ')}
           {...elementConfig}
@@ -41,7 +41,7 @@ const Input = ({ inputType, changed, label, value, valid, shouldValidate, isTouc
       inputElement = (
         <select
           name={name}
-          onChange={(e) => changed(e, name)}
+          onChange={e => changed(e, name)}
           className={attachedClasses.join(' ')}
           value={value}
         >
@@ -67,11 +67,23 @@ const Input = ({ inputType, changed, label, value, valid, shouldValidate, isTouc
 Input.defaultProps = {
   label: '',
   inputType: 'input',
+  valid: true,
+  shouldValidate: false,
+  isTouched: false,
+  name: '',
+  elementConfig: {},
 };
 
 Input.propTypes = {
   label: PropTypes.string,
   inputType: PropTypes.string,
+  changed: PropTypes.func.isRequired,
+  value: PropTypes.string.isRequired,
+  valid: PropTypes.bool,
+  shouldValidate: PropTypes.bool,
+  isTouched: PropTypes.bool,
+  name: PropTypes.string,
+  elementConfig: PropTypes.objectOf(PropTypes.any),
 };
 
 export default Input;
