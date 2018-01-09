@@ -1,4 +1,3 @@
-/* eslint-disable */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -15,7 +14,6 @@ import * as actions from '../../store/actions';
 
 export class BurgerBuilder extends Component {
   state = {
-    purchasable: false,
     purchasing: false,
   }
 
@@ -37,7 +35,7 @@ export class BurgerBuilder extends Component {
     if (this.props.isAuthenticated) {
       this.setState({
         purchasing: true,
-      });  
+      });
     } else {
       this.props.history.push('/auth');
     }
@@ -66,7 +64,7 @@ export class BurgerBuilder extends Component {
     if (this.props.ings) {
       orderSummary = (
         <OrderSummary
-          ingridients={this.props.igns}
+          ingridients={this.props.ings}
           continuePurchasing={this.continuePurchasing}
           cancelPurchasing={this.cancelPurchasing}
           price={this.props.price.toFixed(2)}
@@ -94,7 +92,7 @@ export class BurgerBuilder extends Component {
     }
 
     if (this.props.error) {
-      burger = <p>Can't fetch ingredients.</p>
+      burger = <p>Can&#39;t fetch ingredients.</p>;
     }
 
     return (
@@ -113,18 +111,26 @@ export class BurgerBuilder extends Component {
 
 BurgerBuilder.propTypes = {
   history: PropTypes.objectOf(PropTypes.any).isRequired,
+  onIngredientInited: PropTypes.func.isRequired,
+  ings: PropTypes.objectOf(PropTypes.any).isRequired,
+  isAuthenticated: PropTypes.bool.isRequired,
+  onPurchaseBurgerInit: PropTypes.func.isRequired,
+  price: PropTypes.number.isRequired,
+  onIngridientAdded: PropTypes.func.isRequired,
+  onIngridientRemoved: PropTypes.func.isRequired,
+  error: PropTypes.bool.isRequired,
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   ings: state.burgerBuilder.ingredients,
   price: state.burgerBuilder.totalPrice,
   error: state.burgerBuilder.error,
   isAuthenticated: !!state.auth.token,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  onIngridientAdded: (ingName) => dispatch(actions.addIngredient(ingName)),
-  onIngridientRemoved: (ingName) => dispatch(actions.removeIngredient(ingName)),
+const mapDispatchToProps = dispatch => ({
+  onIngridientAdded: ingName => dispatch(actions.addIngredient(ingName)),
+  onIngridientRemoved: ingName => dispatch(actions.removeIngredient(ingName)),
   onIngredientInited: () => dispatch(actions.initIngredients()),
   onPurchaseBurgerInit: () => dispatch(actions.purchaseBurgerInit()),
 });
