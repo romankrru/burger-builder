@@ -1,4 +1,3 @@
-/* eslint-disable */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Route, Redirect } from 'react-router-dom';
@@ -9,8 +8,9 @@ import ContactData from './ContactData/ContactData';
 
 class Checkout extends Component {
   static propTypes = {
-    location: PropTypes.objectOf(PropTypes.any).isRequired,
     match: PropTypes.objectOf(PropTypes.any).isRequired,
+    ings: PropTypes.objectOf(PropTypes.any).isRequired,
+    purchased: PropTypes.bool.isRequired,
   }
 
   render() {
