@@ -1,7 +1,7 @@
-/* eslint-disable */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 import * as actions from '../../store/actions';
 import Input from '../../components/UI/Input/Input';
@@ -41,7 +41,7 @@ class Auth extends Component {
         valid: false,
         touched: false,
       },
-    }
+    },
   }
 
   componentDidMount() {
@@ -87,21 +87,19 @@ class Auth extends Component {
   }
 
   render() {
-    const formElements = Object.keys(this.state.controls).map(inputName => {
-      return (
-        <Input
-          key={inputName}
-          name={inputName}
-          inputType={this.state.controls[inputName].elementType}
-          value={this.state.controls[inputName].value}
-          elementConfig={this.state.controls[inputName].elementConfig}
-          valid={this.state.controls[inputName].valid}
-          shouldValidate={this.state.controls[inputName].validation}
-          isTouched={this.state.controls[inputName].touched}
-          changed={this.onInputChangeHandler}
-        />
-      )
-    });
+    const formElements = Object.keys(this.state.controls).map(inputName => (
+      <Input
+        key={inputName}
+        name={inputName}
+        inputType={this.state.controls[inputName].elementType}
+        value={this.state.controls[inputName].value}
+        elementConfig={this.state.controls[inputName].elementConfig}
+        valid={this.state.controls[inputName].valid}
+        shouldValidate={this.state.controls[inputName].validation}
+        isTouched={this.state.controls[inputName].touched}
+        changed={this.onInputChangeHandler}
+      />
+    ));
 
     let form = (
       <form onSubmit={this.onFormSubmit}>
@@ -122,7 +120,7 @@ class Auth extends Component {
           .split('_')
           .join(' ');
 
-      errorMsg = <p style={{ color: 'red' }}>{msg}</p>
+      errorMsg = <p style={{ color: 'red' }}>{msg}</p>;
     }
 
     return (
@@ -147,6 +145,20 @@ class Auth extends Component {
   }
 }
 
+Auth.defaultProps = {
+  error: null,
+};
+
+Auth.propTypes = {
+  building: PropTypes.bool.isRequired,
+  onSetAuthRedirectPath: PropTypes.func.isRequired,
+  onAuth: PropTypes.func.isRequired,
+  loading: PropTypes.bool.isRequired,
+  error: PropTypes.objectOf(PropTypes.any),
+  isAuthenticated: PropTypes.bool.isRequired,
+  authRedirectPath: PropTypes.string.isRequired,
+};
+
 const mapStateToProps = state => ({
   loading: state.auth.loading,
   error: state.auth.error,
@@ -157,7 +169,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   onAuth: (email, password, isSignIn) => dispatch(actions.auth(email, password, isSignIn)),
-  onSetAuthRedirectPath: (path) => dispatch(actions.setAuthRedirectPath(path)),
+  onSetAuthRedirectPath: path => dispatch(actions.setAuthRedirectPath(path)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Auth);
