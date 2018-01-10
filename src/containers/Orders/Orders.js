@@ -1,6 +1,6 @@
-/* eslint-disable */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import axios from '../../axios-orders';
 
 import Order from '../../components/Order/Order';
@@ -32,6 +32,14 @@ class Orders extends Component {
     );
   }
 }
+
+Orders.propTypes = {
+  onOrdersFetch: PropTypes.func.isRequired,
+  token: PropTypes.string.isRequired,
+  userId: PropTypes.string.isRequired,
+  loading: PropTypes.bool.isRequired,
+  orders: PropTypes.arrayOf(PropTypes.any).isRequired,
+};
 
 const mapStateToProps = state => ({
   orders: state.order.orders,
