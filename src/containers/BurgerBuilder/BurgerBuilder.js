@@ -109,10 +109,14 @@ export class BurgerBuilder extends Component {
   }
 }
 
+BurgerBuilder.defaultProps = {
+  ings: null,
+};
+
 BurgerBuilder.propTypes = {
   history: PropTypes.objectOf(PropTypes.any).isRequired,
   onIngredientInited: PropTypes.func.isRequired,
-  ings: PropTypes.objectOf(PropTypes.any).isRequired,
+  ings: PropTypes.objectOf(PropTypes.any),
   isAuthenticated: PropTypes.bool.isRequired,
   onPurchaseBurgerInit: PropTypes.func.isRequired,
   price: PropTypes.number.isRequired,
