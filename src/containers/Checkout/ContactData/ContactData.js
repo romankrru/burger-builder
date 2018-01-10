@@ -1,8 +1,7 @@
-/* eslint-disable */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import axios from '../../../axios-orders';
 import { connect } from 'react-redux';
+import axios from '../../../axios-orders';
 
 import Spinner from '../../../components/UI/Spinner/Spinner';
 import Button from '../../../components/UI/Button/Button';
@@ -16,19 +15,21 @@ import checkValidity from '../../../shared/chekValidity';
 class ContactData extends Component {
   static propTypes = {
     ings: PropTypes.objectOf(PropTypes.number).isRequired,
-    history: PropTypes.objectOf(PropTypes.any).isRequired,
     price: PropTypes.number.isRequired,
+    userId: PropTypes.string.isRequired,
+    onOrderBurger: PropTypes.func.isRequired,
+    token: PropTypes.string.isRequired,
+    loading: PropTypes.bool.isRequired,
   }
 
   state = {
-    loading: false,
     formIsValid: false,
     orderForm: {
       name: {
         elementType: 'input',
         elementConfig: {
           type: 'text',
-          placeholder: 'Name'
+          placeholder: 'Name',
         },
         value: '',
         validation: {
@@ -100,32 +101,8 @@ class ContactData extends Component {
           ],
         },
         value: 'fastes',
-      }
+      },
     },
-  }
-
-  orderHandler = (e) => {
-    e.preventDefault();
-
-    this.setState({
-      loading: true,
-    });
-
-    const formData = {};
-
-    Object.keys(this.state.orderForm).forEach(element => {
-      formData[element] = this.state.orderForm[element].value;
-    });
-
-    const data = {
-      ingridients: this.props.ings,
-      totalPrice: this.props.price,
-      customer: formData,
-      userId: this.props.userId,
-    };
-
-
-    this.props.onOrderBurger(data, this.props.token);
   }
 
   onInputChangeHandler = (e, id) => {
@@ -145,7 +122,7 @@ class ContactData extends Component {
 
     Object.keys(updatedOrderForm).forEach((el) => {
       if (
-        updatedOrderForm[el].hasOwnProperty('valid') &&
+        updatedOrderForm[el].valid &&
         !updatedOrderForm[el].valid && formIsValid
       ) {
         formIsValid = false;
@@ -154,29 +131,47 @@ class ContactData extends Component {
 
     this.setState({
       orderForm: updatedOrderForm,
-      formIsValid: formIsValid,
+      formIsValid,
     });
+  }
+
+  orderHandler = (e) => {
+    e.preventDefault();
+
+    const formData = {};
+
+    Object.keys(this.state.orderForm).forEach((element) => {
+      formData[element] = this.state.orderForm[element].value;
+    });
+
+    const data = {
+      ingridients: this.props.ings,
+      totalPrice: this.props.price,
+      customer: formData,
+      userId: this.props.userId,
+    };
+
+
+    this.props.onOrderBurger(data, this.props.token);
   }
 
   render() {
     let form = <Spinner />;
 
     if (this.props.loading === false) {
-      const formElements = Object.keys(this.state.orderForm).map(inputName => {
-        return (
-          <Input
-            key={inputName}
-            name={inputName}
-            inputType={this.state.orderForm[inputName].elementType}
-            value={this.state.orderForm[inputName].value}
-            elementConfig={this.state.orderForm[inputName].elementConfig}
-            valid={this.state.orderForm[inputName].valid}
-            shouldValidate={this.state.orderForm[inputName].validation}
-            isTouched={this.state.orderForm[inputName].touched}
-            changed={this.onInputChangeHandler}
-          />
-        )
-      })
+      const formElements = Object.keys(this.state.orderForm).map(inputName => (
+        <Input
+          key={inputName}
+          name={inputName}
+          inputType={this.state.orderForm[inputName].elementType}
+          value={this.state.orderForm[inputName].value}
+          elementConfig={this.state.orderForm[inputName].elementConfig}
+          valid={this.state.orderForm[inputName].valid}
+          shouldValidate={this.state.orderForm[inputName].validation}
+          isTouched={this.state.orderForm[inputName].touched}
+          changed={this.onInputChangeHandler}
+        />
+      ));
 
       form = (
         <form onSubmit={this.orderHandler}>
