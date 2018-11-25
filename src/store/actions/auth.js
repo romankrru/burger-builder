@@ -1,5 +1,3 @@
-import axios from 'axios';
-
 import * as actionTypes from './actionTypes';
 
 export const authStart = () => ({
@@ -44,27 +42,6 @@ export const setAuthRedirectPath = path => ({
   path,
 });
 
-export const authCheckState = () => (dispatch) => {
-  const idToken = localStorage.getItem('idToken');
-
-  if (!idToken) {
-    dispatch(authLogout());
-    return;
-  }
-
-  const expirationDate = new Date(localStorage.getItem('expirationDate'));
-
-  if (expirationDate < new Date()) {
-    dispatch(authLogout());
-    return;
-  }
-
-  const localId = localStorage.getItem('localId');
-
-  dispatch(authSuccess({
-    idToken,
-    localId,
-  }));
-
-  dispatch(checkAuthTimeout((expirationDate.getTime() - new Date().getTime()) / 1000));
-};
+export const authCheckState = () => ({
+  type: actionTypes.AUTH_CHECK_STATE,
+});
