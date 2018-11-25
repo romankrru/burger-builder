@@ -15,6 +15,9 @@ describe('<BurgerBuilder />', () => {
 
   beforeEach(() => {
     wrapper = shallow(<BurgerBuilder
+      isAuthenticated={false}
+      onPurchaseBurgerInit={() => {}}
+      error={false}
       onIngredientInited={() => { }}
       price={0}
       history={{}}
