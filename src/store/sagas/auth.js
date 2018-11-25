@@ -32,7 +32,8 @@ export function* authUserSaga(action) {
   }
 
   try {
-    const response = yield axios.post(url, authData);
+    const response = yield call([axios, 'post'], url, authData);
+    // console.log(new Date());
 
     const {
       expiresIn,
@@ -40,10 +41,10 @@ export function* authUserSaga(action) {
       localId,
     } = response.data;
 
-    const expirationDate = yield new Date(new Date().getTime() + (Number(expiresIn) * 1000));
-    yield localStorage.setItem('expirationDate', expirationDate);
-    yield localStorage.setItem('idToken', idToken);
-    yield localStorage.setItem('localId', localId);
+    const expirationDate = yield new Date(Date.now() + (Number(expiresIn) * 1000));
+    yield call([localStorage, 'setItem'], 'expirationDate', expirationDate);
+    yield call([localStorage, 'setItem'], 'idToken', idToken);
+    yield call([localStorage, 'setItem'], 'localId', localId);
     yield put(checkAuthTimeout(expiresIn));
     yield put(authSuccess(response.data));
   } catch (err) {
