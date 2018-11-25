@@ -18,12 +18,8 @@ export const authFail = error => ({
 });
 
 export const authLogout = () => {
-  localStorage.removeItem('expirationDate');
-  localStorage.removeItem('idToken');
-  localStorage.removeItem('localId');
-
   return {
-    type: actionTypes.AUTH_LOGOUT,
+    type: actionTypes.AUTH_INITIATE_LOGOUT,
   };
 };
 
