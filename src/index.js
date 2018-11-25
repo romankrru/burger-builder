@@ -13,7 +13,7 @@ import registerServiceWorker from './registerServiceWorker';
 import burgerBuilderReducer from './store/reducers/burgerBuilder';
 import orderReducer from './store/reducers/orders';
 import authReducer from './store/reducers/auth';
-import {watchAuth, watchBurgerBuilder, watchOrders} from './store/sagas';
+import { watchAuth, watchBurgerBuilder, watchOrders } from './store/sagas';
 
 let composeEnhancers;
 
@@ -33,10 +33,7 @@ const sagaMiddleWare = createSagaMiddleWare();
 
 const store = createStore(
   rootReducer,
-
-  composeEnhancers(
-    applyMiddleware(thunk, sagaMiddleWare),
-  ),
+  composeEnhancers(applyMiddleware(thunk, sagaMiddleWare)),
 );
 
 sagaMiddleWare.run(watchAuth);

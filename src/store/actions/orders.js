@@ -18,8 +18,8 @@ export const purchaseBurgerStart = () => ({
 
 export const purchaseBurger = (orderData, token) => ({
   type: actionTypes.PURCHASE_BURGER,
-  orderData: orderData,
-  token: token,
+  orderData,
+  token,
 });
 
 export const purchaseBurgerInit = () => ({
@@ -43,6 +43,6 @@ export const fetchOrdersFail = err => ({
 
 export const fetchOrders = (token, userId) => ({
   type: actionTypes.FETCH_ORDERS,
-  token: token,
-  userId: userId,
+  token,
+  userId,
 });

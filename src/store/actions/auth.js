@@ -15,26 +15,19 @@ export const authFail = error => ({
   error,
 });
 
-export const authLogout = () => {
-  return {
-    type: actionTypes.AUTH_INITIATE_LOGOUT,
-  };
-};
-
-export const logoutSucceed = () => ({
-  type: actionTypes.AUTH_LOGOUT,
-})
+export const authLogout = () => ({ type: actionTypes.AUTH_INITIATE_LOGOUT });
+export const logoutSucceed = () => ({ type: actionTypes.AUTH_LOGOUT });
 
 export const checkAuthTimeout = expirationTime => ({
   type: actionTypes.AUTH_CHECK_TIMEOUT,
-  expirationTime: expirationTime,
+  expirationTime,
 });
 
 export const auth = (email, password, isSignIn) => ({
   type: actionTypes.AUTH_USER,
-  email: email,
-  password: password,
-  isSignIn: isSignIn,
+  email,
+  password,
+  isSignIn,
 });
 
 export const setAuthRedirectPath = path => ({

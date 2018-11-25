@@ -1,4 +1,4 @@
-import {put} from 'redux-saga/effects';
+import { put } from 'redux-saga/effects';
 
 import axios from '../../axios-orders';
 import * as actions from '../actions';
@@ -10,6 +10,7 @@ export function* purchaseBurgerSaga(action) {
     const response = yield axios.post(`/orders.json?auth=${action.token}`, action.orderData);
     yield put(actions.purchaseBurgerSuccess(response.data.name, action.orderData));
   } catch (error) {
+    // eslint-disable-next-line no-console
     console.error(error);
     yield put(actions.purchaseBurgerFail(error));
   }
@@ -33,6 +34,7 @@ export function* fetchOrdersSaga(action) {
 
     yield put(actions.fetchOrdersSuccess(fetchedOrders));
   } catch (err) {
+    // eslint-disable-next-line no-console
     console.error(err);
     yield put(actions.fetchOrdersFail(err));
   }
