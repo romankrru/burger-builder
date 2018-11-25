@@ -1,7 +1,9 @@
 /* eslint-disable */
 import {delay} from 'redux-saga';
-import {logoutSaga, checkAuthTimeoutSaga, authUserSaga, authCheckStateSaga} from './auth';
+import { cloneableGenerator } from 'redux-saga/utils';
 import { call, put } from 'redux-saga/effects';
+
+import {logoutSaga, checkAuthTimeoutSaga, authUserSaga, authCheckStateSaga} from './auth';
 import { logoutSucceed, authLogout, authStart, checkAuthTimeout, authSuccess, authFail } from '../actions';
 
 describe('`logoutSaga` test', () => {
@@ -112,3 +114,63 @@ describe('`authUserSaga` test', () => {
 	});
 });
 
+describe('`authCheckStateSaga` test', () => {
+	const gen = cloneableGenerator(authCheckStateSaga)();
+
+	it('should get `idToken` from ls', () => {
+		const result = gen.next().value;
+		const expected = call([localStorage, 'getItem'], 'idToken');
+		expect(result).toEqual(expected);
+	});
+
+	describe('has no idToken', () => {
+		let clone;
+
+		beforeAll(() => {
+			clone = gen.clone();
+		});
+
+		it('should dispatch `authLogout`', () => {
+			const result = clone.next(undefined).value;
+			const expected = put(authLogout());
+			expect(result).toEqual(expected);
+		});
+
+		it('must be done', () => {
+			expect(clone.next()).toEqual({ done: true, value: undefined })
+		});
+	});
+
+	describe('has idToken', () => {
+		let clone;
+
+		beforeAll(() => {
+			clone = gen.clone();
+		});
+
+		it('should get `expirationDateLs` from ls', () => {
+			const result = clone.next('mytoken').value;
+			const expected = call([localStorage, 'getItem'], 'expirationDate');
+			expect(result).toEqual(expected);
+		});
+
+		it('should calculate `expirationDate`', () => {
+			const d = +(new Date(Date.now() + 1000))
+			const result = clone.next(d).value;
+			expect(result).toEqual(new Date(d));
+		});
+
+		it('should get `localId` from ls', () => {
+			const result = clone.next(Date.now + 1000).value;
+			const expected = call([localStorage, 'getItem'], 'localId');
+			expect(result).toEqual(expected);
+		});
+
+		it('should dispatch `authSuccess` action', () => {
+			expect(clone.next('mylocalid').value).toEqual(put(authSuccess({
+				localId: 'mylocalid',
+				idToken: 'mytoken'
+			})));
+		});
+	});
+});
