@@ -13,7 +13,7 @@ import registerServiceWorker from './registerServiceWorker';
 import burgerBuilderReducer from './store/reducers/burgerBuilder';
 import orderReducer from './store/reducers/orders';
 import authReducer from './store/reducers/auth';
-import {watchAuth} from './store/sagas';
+import {watchAuth, watchBurgerBuilder} from './store/sagas';
 
 let composeEnhancers;
 
@@ -40,6 +40,7 @@ const store = createStore(
 );
 
 sagaMiddleWare.run(watchAuth);
+sagaMiddleWare.run(watchBurgerBuilder);
 
 const app = (
   <Provider store={store}>

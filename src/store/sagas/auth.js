@@ -32,9 +32,9 @@ export function* authUserSaga(action) {
     url = 'https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key=AIzaSyDMgxCy_jY4UXOIBHrlsBkc3A4Ny5stNUo';
   }
 
-  const response = yield axios.post(url, authData);
-
   try {
+    const response = yield axios.post(url, authData);
+
     const {
       expiresIn,
       idToken,
