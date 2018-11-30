@@ -1,4 +1,3 @@
-/* eslint-disable no-underscore-dangle */
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
@@ -18,6 +17,7 @@ import { watchAuth, watchBurgerBuilder, watchOrders } from './store/sagas';
 let composeEnhancers;
 
 if (process.env.NODE_ENV === 'development') {
+  // eslint-disable-next-line no-underscore-dangle
   composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 } else {
   composeEnhancers = compose;
